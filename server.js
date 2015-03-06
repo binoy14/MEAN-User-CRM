@@ -9,6 +9,8 @@ var express = require('express'),
 	mongoose = require('mongoose'),
 	port = process.env.PORT || 8080;
 
+mongoose.connect('mongodb://localhost:27107/mean-machine');
+
 // App Config
 
 app.use(bodyParser.urlencoded({extended : true}));
@@ -17,7 +19,7 @@ app.use(bodyParser.json());
 app.use(function(req, res, next){
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader('Access-Control-Allow-Methods','GET, POST');
-	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type, \Authorization');
+	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type, Authorization');
 	next();
 });
 
