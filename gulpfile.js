@@ -6,3 +6,5 @@ gulp.task('lint', function(){
 		.pipe(jshint())
 		.pipe(jshint.reporter('fail'));
 });
+
+gulp.task('default', ['lint']);
