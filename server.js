@@ -68,6 +68,38 @@ apiRouter.route('/users')
 		});
 	});
 
+apiRouter.route('/users/:user_id')
+	.get(function(req, res){
+		User.findById(req.params.user_id, function(err, user){
+			if(err) res.send(err);
+
+			res.json(user);
+		});
+	})
+	.put(function(req, res){
+		User.findById(req.params.user_id, function(err, user){
+			if(err) res.send(err);
+
+			if(req.body.name) user.name = req.body.name;
+			if(req.body.username) user.username = req.body.username;
+			if(req.body.password) user.password = req.body.password;
+
+			user.save(function(err){
+				if(err) res.send(err);
+
+				res.json({message : 'User updated!'});
+			});
+		});
+	});
+	.delete(function(req, res){
+		User.remove({
+			_id : req.params.user_id
+		}, function(err, user){
+			if(err) return res.send(err);
+
+			res.json({message : 'Successfully deleted'});
+		})
+	})
 app.use('/api', apiRouter);
 
 app.listen(port);
