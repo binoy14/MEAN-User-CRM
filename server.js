@@ -7,7 +7,8 @@ var express = require('express'),
 	bodyParser = require('body-parser'),
 	morgan = require('morgan'),
 	mongoose = require('mongoose'),
-	port = process.env.PORT || 8080;
+	port = process.env.PORT || 8080,
+	User = require('./app/models/user');
 
 mongoose.connect('mongodb://localhost:27107/mean-machine');
 
@@ -31,9 +32,41 @@ app.get('/', function(req, res){
 
 var apiRouter = express.Router();
 
+apiRouter.use(function(req, res, next){
+	console.log('Somebody just came to our app!');
+	next();
+});
+
 apiRouter.get('/', function(req, res){
 	res.json({message : 'hooray! welcome to our api!'});
 });
+
+apiRouter.route('/users')
+	.post(function(req, res){
+		var user = new User();
+		user.name = req.body.name;
+		user.username = req.body.username;
+		user.password = req.body.password;
+
+		user.save(function(err){
+			if(err){
+				if(err.code === 11000){
+					return res.json({sucess : false, message : 'A user with that username already exists.'});
+				} else {
+					return res.send(err);
+				}
+			}
+
+			res.json({message : 'User created!'});
+		});
+	})
+	.get(function(req, res){
+		User.find(function(err, users){
+			if(err) res.send(err);
+
+			res.json(users);
+		});
+	});
 
 app.use('/api', apiRouter);
 
