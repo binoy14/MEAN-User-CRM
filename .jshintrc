@@ -1,12 +1,13 @@
 {
-    "eqeqeq" : true,
-    "curly" : false,
-    "undef" : true,
-    "strict" : false,
-    "globals" : {
-    	"require" : true,
-    	"console" : true,
-    	"process" : true,
-    	"module" : true
+    "eqeqeq": true,
+    "curly": false,
+    "undef": true,
+    "strict": false,
+    "globals": {
+        "require": true,
+        "console": true,
+        "process": true,
+        "module": true,
+        "__dirname": true
     }
 }
