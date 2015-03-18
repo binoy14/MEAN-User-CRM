@@ -27,7 +27,7 @@ app.use(function(req, res, next) {
 });
 
 app.use(morgan('dev'));
-
+app.use(express.static(__dirname + '/public'));
 var apiRoutes = require('./app/routes/api')(app, express);
 app.use('/api', apiRoutes);
 
