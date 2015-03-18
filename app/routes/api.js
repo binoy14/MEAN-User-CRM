@@ -60,7 +60,7 @@ module.exports = function(app, express) {
     });
 
     // route middleware to verify a token
-    /*apiRouter.use(function(req, res, next) {
+    apiRouter.use(function(req, res, next) {
         // do logging
         console.log('Somebody just came to our app!');
 
@@ -96,7 +96,7 @@ module.exports = function(app, express) {
             });
 
         }
-    });*/
+    });
 
     // test route to make sure everything is working 
     // accessed at GET http://localhost:8080/api
@@ -121,7 +121,7 @@ module.exports = function(app, express) {
         user.save(function(err) {
             if (err) {
                 // duplicate entry
-                if (err.code == 11000)
+                if (err.code === 11000)
                     return res.json({
                         success: false,
                         message: 'A user with that username already exists. '
